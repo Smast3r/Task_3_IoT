@@ -1,0 +1,707 @@
+{
+  "intents": [
+    {
+      "intent": "rate_service",
+      "examples": [
+        {
+          "text": "bad"
+        },
+        {
+          "text": "good"
+        },
+        {
+          "text": "i want to rate you"
+        },
+        {
+          "text": "rate"
+        },
+        {
+          "text": "stars"
+        },
+        {
+          "text": "time"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Song_order",
+      "examples": [
+        {
+          "text": "any suggestion"
+        },
+        {
+          "text": "give me a song"
+        },
+        {
+          "text": "give me song"
+        },
+        {
+          "text": "im bored"
+        },
+        {
+          "text": "suggest a song"
+        },
+        {
+          "text": "what should i listen to"
+        }
+      ],
+      "description": "this is when the user wants to ask for a song"
+    }
+  ],
+  "entities": [
+    {
+      "entity": "ans",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "no",
+          "synonyms": [
+            "not really "
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "yes",
+          "synonyms": [
+            "yeah"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "pizza_type",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "cheese",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "pepperoni",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "rate",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "0",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "1",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "2",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "3",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "4",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "5",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "service",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Cleanliness",
+          "synonyms": [
+            "cleanness",
+            "peacefulness"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "food",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "overall",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "place",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "singer",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "rash",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "talal",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "song_language",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "arabic",
+          "synonyms": [
+            "3arabiah",
+            "3arabyah",
+            "3rbi",
+            "3rbiah",
+            "3rby",
+            "3rbyah",
+            "arab ",
+            "arbiah"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "English",
+          "synonyms": [
+            "Eng"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_2_1624948986580",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Cleanliness ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Rate the Cleanliness from 0 to 5 , where 5 is really good. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1625122813123",
+      "conditions": "@service:Cleanliness",
+      "dialog_node": "node_1_1625124728812",
+      "previous_sibling": "node_6_1625124724845"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you :) "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1625124728812",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_8_1625122813123"
+      },
+      "conditions": "@rate >= 0",
+      "dialog_node": "node_1_1625125380325"
+    },
+    {
+      "type": "standard",
+      "title": "Song responds ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Oh .. ok , I will help you to find a song. So, Arabic or English song ?  "
+              },
+              {
+                "text": "well son , you're at the right place, do you like Arabic or English songs ? "
+              },
+              {
+                "text": "Song ?? Ok let me see , Arabic or English ? "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#Song_order",
+      "dialog_node": "node_2_1624948986580",
+      "previous_sibling": "node_4_1625122667716"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you :) "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1625124729772",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_8_1625122813123"
+      },
+      "conditions": "@rate >= 0",
+      "dialog_node": "node_2_1625125405356"
+    },
+    {
+      "type": "standard",
+      "title": "When English",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "well, I would like to help you, I don't know mush about them TBH "
+              },
+              {
+                "text": "oh.... ammm ok , I'm really sorry but I can't suggest any English song at this time. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "parent": "node_2_1624948986580",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_2_1624948986580"
+      },
+      "conditions": "@song_language:English",
+      "dialog_node": "node_3_1624950593135"
+    },
+    {
+      "type": "standard",
+      "title": "When Arabic ",
+      "output": {
+        "generic": [
+          {
+            "title": "Singer ",
+            "options": [
+              {
+                "label": "Rashed almajed ",
+                "value": {
+                  "input": {
+                    "text": "rash"
+                  }
+                }
+              },
+              {
+                "label": "Talal maddah ",
+                "value": {
+                  "input": {
+                    "text": "talal "
+                  }
+                }
+              },
+              {
+                "label": "any ",
+                "value": {
+                  "input": {
+                    "text": "any "
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_2_1624948986580",
+      "conditions": "@song_language:arabic",
+      "dialog_node": "node_3_1624950844821",
+      "previous_sibling": "node_3_1624950593135"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "OK check this : <a href=\"https://youtu.be/vxemyk0BDxM\" target=\"_blank\" > click here !</a>"
+              },
+              {
+                "text": "well , there you go : <a href=\"https://youtu.be/ido9UlVCsVQ\" target=\"_blank\" > click here !</a>"
+              },
+              {
+                "text": "done ! check this : <a= href=\"https://youtu.be/UC9h35kyrC4\" target=\"_blank\" > click here !</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "parent": "node_3_1624950844821",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_3_1624950844821"
+      },
+      "conditions": "@singer:talal",
+      "dialog_node": "node_3_1624951844599",
+      "previous_sibling": "node_7_1624951312622"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you :) "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1625124730669",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_8_1625122813123"
+      },
+      "conditions": "@rate >= 0",
+      "dialog_node": "node_3_1625125414870"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I hope you enjoyed your night with us. click on the service that you want to rate "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#rate_service",
+      "dialog_node": "node_4_1625122667716",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Place",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Rate the Place from 0 to 5 , where 5 is really good. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1625122813123",
+      "conditions": "@service:place",
+      "dialog_node": "node_4_1625124729772",
+      "previous_sibling": "node_1_1625124728812"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you :) "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1625124724845",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_8_1625122813123"
+      },
+      "conditions": "@rate >= 0",
+      "dialog_node": "node_4_1625125061909"
+    },
+    {
+      "type": "standard",
+      "title": "Food",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Rate our food from 0 to 5 , where 5 is really good. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1625122813123",
+      "conditions": "@service:food",
+      "dialog_node": "node_6_1625124724845"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "OK check this : <a href=\"https://youtu.be/r_-peYY-efA\" target=\"_blank\">click here !</a>"
+              },
+              {
+                "text": "well , there you go : <a href=\"https://youtu.be/gHp9K2wYZ-k\" target=\"_blank\">click here !</a>"
+              },
+              {
+                "text": "done ! check this : <a href=\"https://youtu.be/4QmZQ0oE0Mk\" target=\"_blank\">click here !</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "parent": "node_3_1624950844821",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_3_1624950844821"
+      },
+      "conditions": "@singer:rash",
+      "dialog_node": "node_7_1624951312622"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "coming soon :) "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "parent": "node_3_1624950844821",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_3_1624950844821"
+      },
+      "conditions": "@singer",
+      "dialog_node": "node_7_1624953198272",
+      "previous_sibling": "node_3_1624951844599"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "give us your overall rate from 0 to 5 , where 5 is really good. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1625122813123",
+      "conditions": "@service:overall",
+      "dialog_node": "node_7_1625124730669",
+      "previous_sibling": "node_4_1625124729772"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "title": "Rate Our Services ",
+            "options": [
+              {
+                "label": "Rate Food ",
+                "value": {
+                  "input": {
+                    "text": "food "
+                  }
+                }
+              },
+              {
+                "label": "Rate Cleanliness",
+                "value": {
+                  "input": {
+                    "text": "Cleanliness"
+                  }
+                }
+              },
+              {
+                "label": "Rate The Place ",
+                "value": {
+                  "input": {
+                    "text": "Place "
+                  }
+                }
+              },
+              {
+                "label": "Overall Rate ",
+                "value": {
+                  "input": {
+                    "text": "Rate "
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_4_1625122667716",
+      "conditions": "#rate_service",
+      "dialog_node": "node_8_1625122813123"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi dear , I'm here to help you to give us your kind rating and notes. to start write ( rate ). By the way you can ask for a song if you want e.g.(give me a song ) "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}
