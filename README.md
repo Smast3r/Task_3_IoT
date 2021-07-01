@@ -1,32 +1,16 @@
-# task1ForSmartMethods
-This task was t add a controller to Task 1 
-so, 
+# Chat bot Task :) 
 
-To see the Front-end code go to :  robotController.php 
+this bot has two main features
 
-In the Front-end we have the controllers buttons. those buttons are using Jquery -> $.post 
-method to send data to the Back-end. 
+1- it helps you to rate the thing ( resturant etc ... ) 
+  just fowllow the instructions of the bot 
 
--------------------------------------------------------------------------------------------------------------
-
-To see the back-end code go to : movement.php 
-
-in the back-end we will recive the data and update the database whenever we recive a request. 
-
--------------------------------------------------------------------------------------------------------------
-
-to import the database use : task1.sql 
-
-don't worry about the name its for task2 ! 
-
--------------------------------------------------------------------------------------------------------------
-
-to get the movement instructions go to : getMovement.php 
-
-this is white page with words to tell the robot where should it go. 
+2- it can suggest a song , just write ( song -> arabic -> .... ) : this feature needs to be improved. 
 
 
+note : 
+using APIs this bot can be improved a lot. 
 
 
-
- 
+to find the Json file , it's under the name ( skill-My-first-skill.json ) 
+it's implemented inside the index.php file 
